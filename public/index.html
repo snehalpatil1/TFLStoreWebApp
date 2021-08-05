@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="scripts/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>CRUD Operations using Ajax jQuery</h1>
+    <h4>Login</h4>
+    <div>
+        <label>UserName :</label><input type="text" id="username" />
+        <br />
+        <label>Password :</label><input type="password" id="password" />
+        <br />
+    </div>
+    <button id="btnCreateCredential">Create</button> <br />
+    <button id="btnReadCredential">Read</button><br />
+    <button id="btnUpdateCredential">Update</button><br />
+    <button id="btnDeleteCredential">Delete</button> <br />
+    <hr />
+    <script>
+        $(document).ready(function () {
+
+            var url = "http://localhost:9898/api/credentials";
+
+            $("#btnCreateCredential").click(function () {
+                //send data to rest api for post request handler
+                //http://localhost:9898/api/customers/76
+                var uname = $("#username").val();
+                var password = $("#password").val();
+
+                var theCredential = {
+                    "uname": uname,
+                    "password": password
+                };
+                console.log(theCredential);
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: theCredential,
+                    success: function (result) {
+                        console.log("new Credential is posted to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnReadCredential").click(function () {
+                //R operation :Read Operation
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (result) {
+                        console.log(result);
+                        console.log("the Credential from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnUpdateCredential").click(function () {
+                var theCredential = {
+                    "crid": 5,
+                    "uname": "snehalp@gmail.com",
+                    "password": "root123"
+                };
+
+                let url = "/api/credentials/" + theCredential.crid;
+                //U operation : Update Operation
+                $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(theCredential),
+                    success: function (result) {
+                        console.log("Credential is updated to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnDeleteCredential").click(function () {
+
+                let url = "/api/credentials/" + 5;
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    success: function (result) {
+                        console.log("the Credential is deleted from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+    <hr />
+    <h4>Flowers Operation</h4>
+    <div>
+        <label>Flower Id :</label><input type="text" id="flowerid" />
+        <br />
+        <label>Flower Name :</label><input type="text" id="flowerTitle" />
+        <br />
+        <label>Flower Description :</label><input type="text" id="flowerDesc" />
+        <br />
+        <label>Flower Quantity :</label><input type="text" id="flowerQuan" />
+        <br />
+        <label>Flower UnitPrice :</label><input type="text" id="flowerUP" />
+        <br />
+        <label>Flower Likes :</label><input type="text" id="flowerLikes" />
+        <br />
+    </div>
+    <button id="btnCreate">Create</button> <br />
+    <button id="btnRead">Read</button><br />
+    <button id="btnUpdate">Update</button><br />
+    <button id="btnDelete">Delete</button> <br />
+    <hr />
+    <script>
+        $(document).ready(function () {
+
+            var url = "http://localhost:9898/api/flowers";
+
+            $("#btnCreate").click(function () {
+                //send data to rest api for post request handler
+                //http://localhost:9898/api/customers/76
+                var fid = $("#flowerid").val();
+                var title = $("#flowerTitle").val();
+                var desc = $("#flowerDesc").val();
+                var quantity = $("#flowerQuan").val();
+                var unitpr = $("#flowerUP").val();
+                var likes = $("#flowerLikes").val();
+
+                var theFlower = {
+                    "fid": fid,
+                    "title": title,
+                    "description": desc,
+                    "quantity": quantity,
+                    "unitprice": unitpr,
+                    "likes": likes
+                };
+                console.log(theFlower);
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: theFlower,
+                    success: function (result) {
+                        console.log("new flower is posted to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnRead").click(function () {
+                //R operation :Read Operation
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (result) {
+                        console.log(result);
+                        console.log("the flowers from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnUpdate").click(function () {
+                //  http://localhost:9898/api/flowers/76
+                //  var url="http://localhost:9898/api/flowers/3";
+                var theFlower = {
+                    "fid": 5,
+                    "title": "Lily",
+                    "description": "Decorative Flower",
+                    "quantity": 300,
+                    "unitprice": 100,
+                    "likes": 3000
+                };
+
+                let url = "/api/flowers/" + theFlower.fid;
+                //U operation : Update Operation
+                $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(theFlower),
+                    success: function (result) {
+                        console.log("Flower is updated to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnDelete").click(function () {
+
+                let url = "/api/flowers/" + 5;
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    success: function (result) {
+                        console.log("the flower is deleted from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <hr />
+    <h4>Customer Operation</h4>
+    <button id="btnCreateCust">Create</button> <br />
+    <button id="btnReadCust">Read</button><br />
+    <button id="btnUpdateCust">Update</button><br />
+    <button id="btnDeleteCust">Delete</button> <br />
+    <hr />
+    <script>
+        $(document).ready(function () {
+
+            var url = "http://localhost:9898/api/customers";
+
+            $("#btnCreateCust").click(function () {
+                var theCustomer = {
+                    "cid": 5,
+                    "firstname": "Rohan",
+                    "lastname": "Kale",
+                    "email": "r@gmail.com",
+                    "contactno": "9850851245"
+                };
+                console.log(theCustomer);
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: theCustomer,
+                    success: function (result) {
+                        console.log("new Customer is posted to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnReadCust").click(function () {
+                //R operation :Read Operation
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (result) {
+                        console.log(result);
+                        console.log("the Customer from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnUpdateCust").click(function () {
+
+                var theCustomer = {
+                    "cid": 4,
+                    "firstname": "Rohan",
+                    "lastname": "Kale",
+                    "email": "rohankale@gmail.com",
+                    "contactno": "8052365892"
+                };
+
+                let url = "/api/customers/" + theCustomer.cid;
+                //Update Operation
+                $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(theCustomer),
+                    success: function (result) {
+                        console.log("Customer is updated to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnDeleteCust").click(function () {
+
+                let url = "/api/customers/" + 5;
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    success: function (result) {
+                        console.log("the customer is deleted from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <hr />
+    <h4>Order Operation</h4>
+    <button id="btnCreateOrder">Create</button> <br />
+    <button id="btnReadOrder">Read</button><br />
+    <button id="btnUpdateOrder">Update</button><br />
+    <button id="btnDeleteOrder">Delete</button> <br />
+    <hr />
+    <script>
+        $(document).ready(function () {
+
+            var url = "http://localhost:9898/api/orders";
+
+            $("#btnCreateOrder").click(function () {
+                var theOrder = {
+                    "oid": 3,
+                    "odate": "2020-12-06",
+                    "cid": 1,
+                    "amount": 2000
+                };
+                console.log(theOrder);
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: theOrder,
+                    success: function (result) {
+                        console.log("new Order is posted to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnReadOrder").click(function () {
+                //R operation :Read Operation
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (result) {
+                        console.log(result);
+                        console.log("the Order from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnUpdateOrder").click(function () {
+
+                var theOrder = {
+                    "oid": 3,
+                    "odate": "2021-03-02",
+                    "cid": 1,
+                    "amount": 5000
+                };
+
+                let url = "/api/orders/" + theOrder.oid;
+                //Update Operation
+                $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(theOrder),
+                    success: function (result) {
+                        console.log("Order is updated to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnDeleteOrder").click(function () {
+
+                let url = "/api/orders/" + 3;
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    success: function (result) {
+                        console.log("the order is deleted from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <hr />
+    <h4>OrderDetails Operation</h4>
+    <button id="btnCreateOrderD">Create</button> <br />
+    <button id="btnReadOrderD">Read</button><br />
+    <button id="btnUpdateOrderD">Update</button><br />
+    <button id="btnDeleteOrderD">Delete</button> <br />
+    <hr />
+    <script>
+        $(document).ready(function () {
+
+            var url = "http://localhost:9898/api/orderdetails";
+
+            $("#btnCreateOrderD").click(function () {
+                var theOrderDetail = {
+                    "odid": 3,
+                    "oid": 2,
+                    "fid": 1,
+                    "quantity": 50
+                };
+                console.log(theOrderDetail);
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: theOrderDetail,
+                    success: function (result) {
+                        console.log("new OrderDetail is posted to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnReadOrderD").click(function () {
+                //R operation :Read Operation
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (result) {
+                        console.log(result);
+                        console.log("the OrderDetails from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnUpdateOrderD").click(function () {
+
+                var theOrderDetail = {
+                    "odid": 3,
+                    "oid": 2,
+                    "fid": 1,
+                    "quantity": 75
+                };
+
+                let url = "/api/orderdetails/" + theOrderDetail.odid;
+                //Update Operation
+                $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(theOrderDetail),
+                    success: function (result) {
+                        console.log("OrderDetail is updated to server ");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $("#btnDeleteOrderD").click(function () {
+
+                let url = "/api/orderdetails/" + 3;
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    success: function (result) {
+                        console.log("the orderDetail is deleted from server");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="scripts/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>CRUD Operations using Ajax jQuery</h1>
+        <hr/>
+            <button id="btnCreate">Create</button> <br/>
+            <button id="btnRead">Read</button><br/>
+            <button id="btnUpdate">Update</button><br/>
+            <button id="btnDelete">Delete</button> <br/>    
+            <hr/>      
+        <script>
+          $(document).ready(function(){
+
+            var url="http://localhost:9898/api/flowers";
+
+            $("#btnCreate").click(function(){             
+                //send data to rest api for post request handler
+                //http://localhost:9898/api/customers/76
+                var theFlower={
+                    "fid":1,
+                    "title":"Rose",
+                    "description":"Valentine Flowers",
+                    "quantity":"100",
+                    "unitprice":"20",
+                    "likes":2000
+                };
+                //Invoking  PUT rest api at server side
+                /*$.put(url,theCustomer,function(){
+                    console.log("data is updated  to server.");
+                });
+                */
+
+                // In jQuery there are no  $.put, $.delete functions available
+                // we should use $.ajax function
+
+               // generic function to call any type of HTTP Requst handler
+               // available at server side
+              
+               //Client Side CRUD Operations usign jQuery
+               //These operations will internally generate 
+               // Proper Requests and send to server------>
+               //CRUD Operation of jQuery to invoke CRUD operation available at server side 
+               //using $.ajax() method
+
+              //C operation: Creation Operation
+               $.ajax({
+                        url: url,  // url of rest api
+                        type: 'POST',// request type of rest api
+                       // dataType: "json",
+                        //contentType: "application/json; charset=utf-8",
+                        data:JSON.stringify(theFlower), // data to be sent through request body
+                        success: function (result) {
+                           console.log("new flower is posted to server ");
+                        },
+                        error:function(err){
+                            console.log(err);
+                        }
+                });
+                });
+
+            $("#btnRead").click(function(){             
+                //R operation :Read Operation
+                $.ajax({
+                        url: url,
+                        type: 'GET', 
+                        success: function (result) {
+                            console.log(result);
+                            console.log("the flowers from server");
+                        },
+                        error:function(err){
+                            console.log(err);
+                        }
+                });
+            });
+
+            $("#btnUpdate").click(function(){                        
+                //http://localhost:9898/api/customers/76
+                var theCustomer={
+                    "id":76,
+                    "firstname":"Deepika",
+                    "lastname":"Padukone",
+                    "email":"deepika.padukone@gamil.com",
+                    "contactnumber":"99999999"
+                };
+
+                //let url="/api/customers/"+theCustomer.id;
+                //U operation : Update Operation
+                $.ajax({
+                        url: url,  // url of rest api
+                        type: 'PUT',// request type of rest api
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data:JSON.stringify(theCustomer), // data to be sent through request body
+                        success: function (result) {
+                        console.log("customer is updated to server ");
+                        },
+                        error:function(err){
+                            console.log(err);
+                        }
+                });
+            });
+
+            $("#btnDelete").click(function(){             
+    
+                // used to delete customer from server
+                //D operation: Delete operation
+                $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        success: function (result) {
+                            console.log("the customer is deleted from server");
+                        },
+                        error:function(err){
+                            console.log(err);
+                        }
+                });
+            });
+        });     
+        </script>
+    </body>
+</html>
